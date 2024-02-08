@@ -1,0 +1,2 @@
+-- ALTER TABLE persons
+--     ADD CONSTRAINT uk_username UNIQUE (LOWER(username));

@@ -1,0 +1,14 @@
+### Request 1: Create Person
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "version": 0,
+  "username": "john_doe"
+}
+
+
+### Request 2: migration person
+GET http://localhost:8080/api/migration/run
+Content-Type: application/json
+

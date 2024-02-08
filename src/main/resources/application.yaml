@@ -1,0 +1,17 @@
+app:
+  datasource:
+    hotdb:
+      driverClassName: org.postgresql.Driver
+      username: u
+      password: u
+      jdbcUrl: jdbc:postgresql://localhost:5437/dbh
+
+    colddb:
+      driverClassName: org.postgresql.Driver
+      username: u
+      password: u
+      jdbcUrl: jdbc:postgresql://localhost:5436/dbc
+
+spring:
+  flyway:
+    enabled: true

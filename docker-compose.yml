@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  hotdb:
+    container_name: hotdb
+    image: 'postgres:13.1-alpine'
+    ports:
+      - "5437:5432"
+    environment:
+      - POSTGRES_USER=u
+      - POSTGRES_PASSWORD=u
+      - POSTGRES_DB=dbh
+    networks:
+      - my-network
+
+  colddb:
+    container_name: colddb
+    image: 'postgres:13.1-alpine'
+    ports:
+      - "5436:5432"
+    environment:
+      - POSTGRES_USER=u
+      - POSTGRES_PASSWORD=u
+      - POSTGRES_DB=dbc
+    networks:
+      - my-network
+
+  adminer:
+    image: adminer
+    ports:
+      - "8090:8080"
+    networks:
+      - my-network
+
+
+networks:
+  my-network:
+
