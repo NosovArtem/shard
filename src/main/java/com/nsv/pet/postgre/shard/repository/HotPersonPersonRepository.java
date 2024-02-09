@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class ColdPersonRepository {
+public class HotPersonPersonRepository implements ShardPersonRepository {
 
     @Autowired
-    @Qualifier("coldJdbcTemplate")
+    @Qualifier("hotJdbcTemplate")
     JdbcTemplate jdbcTemplate;
 
     private static final String SELECT_ALL_SQL = "SELECT * FROM persons";
@@ -28,20 +28,20 @@ public class ColdPersonRepository {
         return jdbcTemplate.query(SELECT_ALL_SQL, new BeanPropertyRowMapper<>(Person.class));
     }
 
-    public Optional<Person> findById(Long id) {
+    public Optional<Person> findById(String id) {
         Person person = jdbcTemplate.queryForObject(SELECT_BY_ID_SQL, new Object[]{id}, new BeanPropertyRowMapper<>(Person.class));
         return Optional.ofNullable(person);
     }
 
     public void create(Person person) {
-        jdbcTemplate.update(INSERT_SQL, person.getId(), person.getVersion(), person.getUsername());
+        jdbcTemplate.update(INSERT_SQL, person.getUuid(), person.getVersion(), person.getUsername());
     }
 
     public void update(Person person) {
-        jdbcTemplate.update(UPDATE_SQL, person.getUsername(), person.getId());
+        jdbcTemplate.update(UPDATE_SQL, person.getUsername(), person.getUuid());
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         jdbcTemplate.update(DELETE_SQL, id);
     }
 }

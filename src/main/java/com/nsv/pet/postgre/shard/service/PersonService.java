@@ -1,36 +1,37 @@
 package com.nsv.pet.postgre.shard.service;
 
 import com.nsv.pet.postgre.shard.domain.entity.Person;
-import com.nsv.pet.postgre.shard.repository.ColdPersonRepository;
-import com.nsv.pet.postgre.shard.repository.HotPersonRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nsv.pet.postgre.shard.repository.ColdPersonPersonRepository;
+import com.nsv.pet.postgre.shard.repository.HotPersonPersonRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PersonService {
-    @Autowired
-    private HotPersonRepository hotPersonRepository;
 
-    @Autowired
-    private ColdPersonRepository coldPersonRepository;
+    private final ShardService shardService;
 
-    @Autowired
-    private MigrationService migrationService;
+    private final MigrationService migrationService;
+
 
     public void saveUser(Person person) {
-        hotPersonRepository.create(person);
+        String uuid = String.valueOf(UUID.randomUUID());
+        person.setUuid(uuid);
+        shardService.create(person);
     }
 
-    public Optional<Person> findUserById(Long userId) {
-        return hotPersonRepository.findById(userId);
+    public Optional<Person> findUserById(String userId) {
+        return shardService.findById(userId);
     }
 
     /*
     * Логика для чтения из холодного хранилища (при необходимости)
     */
-    public Optional<Person> findColdUserId(Long userId) {
-        return coldPersonRepository.findById(userId);
+    public Optional<Person> findColdUserId(String userId) {
+        return shardService.findById(userId);
     }
 }

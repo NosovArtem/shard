@@ -3,18 +3,18 @@ package com.nsv.pet.postgre.shard.domain.entity;
 
 public class Person {
 
-    private Long id;
+    private String uuid;
 
     private Long version;
 
     private String username;
 
-    public Long getId() {
-        return id;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public Long getVersion() {

@@ -21,7 +21,7 @@ public class HotUserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Person>> getByUserId(@PathVariable Long id) {
+    public ResponseEntity<Optional<Person>> getByUserId(@PathVariable String id) {
         Optional<Person> users = personService.findUserById(id);
         return ResponseEntity.ok(users);
     }

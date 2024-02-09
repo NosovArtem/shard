@@ -1,10 +1,10 @@
 ### Request 1: Create Person
-POST http://localhost:8080/api/users
+POST http://localhost:8080/api/persons
 Content-Type: application/json
 
 {
   "version": 0,
-  "username": "john_doe"
+  "username": "Irina5"
 }
 
 
